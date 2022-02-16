@@ -5,7 +5,6 @@ function computerPlay() {
 
 function playRound(playerSelection = playerPlay(), computerSelection = computerPlay()) {
 
-    // playerSelection = playerPlay();
     if (playerSelection === 'Rock') {
         if (computerSelection === 'Rock') {
             return ("This round is Tied. Player and Computer played Rock.");
@@ -64,16 +63,13 @@ function playerPlay() {
 
 }
 
-function game() {
-    // resets scores everytime it's called
+/*  function game() {
     computerScore = 0;
     playerScore = 0;
 
-    // while loop with playRound() and sending score all the time
     while (computerScore < 5 && playerScore < 5) {
         console.log(playRound());
         console.log(`SCORE: Computer ${computerScore} - ${playerScore} Player`);
-        // playRound();
 
     }
 
@@ -82,13 +78,27 @@ function game() {
     } else if (playerScore === 5) {
         alert('You win!');
     }
-    // if statements for winner
-}
+} */
 
 
 
 let validPlays = ["Rock", "Paper", "Scissors"];
-//  const playerSelection = playerPlay();
 let computerSelection = computerPlay();
 let playerScore = +0;
 let computerScore = +0;
+
+const playPaper = document.querySelector(".play-paper");
+const playRock = document.querySelector('.play-rock');
+const playScissors = document.querySelector('.play-scissors');
+
+playRock.addEventListener('click', () => {
+    console.log(playRound('Rock', computerPlay()));
+
+});
+playPaper.addEventListener('click', () => {
+    console.log(playRound('Paper', computerPlay()));
+
+});
+playScissors.addEventListener('click', () => {
+    console.log(playRound('Scissors', computerPlay()));
+});
