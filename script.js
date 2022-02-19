@@ -1,9 +1,4 @@
-function computerPlay() {
-    return validPlays[getRandomInt()];
-
-}
-
-function playRound(playerSelection = playerPlay(), computerSelection = computerPlay()) {
+function playRound(playerSelection, computerSelection = computerPlay()) {
 
     if (playerSelection === 'Rock') {
         if (computerSelection === 'Rock') {
@@ -55,50 +50,79 @@ function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
 
-function playerPlay() {
-    let rawUserInput = prompt("Type your play (It's not case sensitive)");
-    userInput = rawUserInput.toLowerCase();
-    userInput = userInput.replace(userInput[0], userInput[0].toUpperCase());
-    return userInput;
+function computerPlay() {
+    return validPlays[getRandomInt()];
 
 }
 
-/*  function game() {
-    computerScore = 0;
-    playerScore = 0;
+function userPlay(choice) {
+    let result = playRound(choice, computerPlay());
+    resultsDiv.textContent = `${result}`;
+    scoreDiv.textContent = `SCORE: COMPUTER ${computerScore} 
+            VS ${playerScore} YOU`;
+    game2();
+}
 
-    while (computerScore < 5 && playerScore < 5) {
-        console.log(playRound());
-        console.log(`SCORE: Computer ${computerScore} - ${playerScore} Player`);
-
-    }
+function game() {
 
     if (computerScore === 5) {
         alert('Computer wins!');
+
     } else if (playerScore === 5) {
         alert('You win!');
     }
-} */
 
-
+}
 
 let validPlays = ["Rock", "Paper", "Scissors"];
-let computerSelection = computerPlay();
 let playerScore = +0;
 let computerScore = +0;
 
 const playPaper = document.querySelector(".play-paper");
 const playRock = document.querySelector('.play-rock');
 const playScissors = document.querySelector('.play-scissors');
+const resultsDiv = document.querySelector('.display-results');
+const scoreDiv = document.querySelector('#score-div');
 
 playRock.addEventListener('click', () => {
-    console.log(playRound('Rock', computerPlay()));
-
+    userPlay('Rock');
 });
 playPaper.addEventListener('click', () => {
-    console.log(playRound('Paper', computerPlay()));
-
+    userPlay('Paper');
 });
 playScissors.addEventListener('click', () => {
-    console.log(playRound('Scissors', computerPlay()));
+    userPlay('Scissors');
 });
+
+function game2() {
+    if (computerScore === 5) {
+        if (confirm('Computer wins! /n Wanna play another game?')) {
+            computerScore = playerScore = 0;
+        } else {
+            // playRock.removeEventListener('click', () => {
+            //     userPlay('Rock');
+            // });
+            // playPaper.removeEventListener('click', () => {
+            //     userPlay('Paper');
+            // });
+            // playScissors.removeEventListener('click', () => {
+            //     userPlay('Scissors');
+            // });
+        }
+
+    } else if (playerScore === 5) {
+        if (confirm('You win! /n Wanna play another game?')) {
+            computerScore = playerScore = 0;
+        } else {
+            // playRock.removeEventListener('click', () => {
+            //     userPlay('Rock');
+            // });
+            // playPaper.removeEventListener('click', () => {
+            //     userPlay('Paper');
+            // });
+            // playScissors.removeEventListener('click', () => {
+            //     userPlay('Scissors');
+            // });
+        }
+    }
+}
