@@ -48,7 +48,11 @@ function computerPlay() {
     return validPlays[getRandomInt()];
 }
 
-function winnerFunction() {
+function userPlayRock() {
+    let result = playRound('Rock', computerPlay());
+    resultsDiv.textContent = `${result}`;
+    scoreDiv.textContent = `SCORE: YOU ${userScore} VS ${computerScore}
+            COMPUTER`;
     if (computerScore === 5) {
         computerScore = 0;
         userScore = 0;
@@ -69,38 +73,51 @@ function winnerFunction() {
     }
 }
 
-function userPlay(choice) {
-    let result = playRound(choice, computerPlay());
+function userPlayPaper() {
+    let result = playRound('Paper', computerPlay());
     resultsDiv.textContent = `${result}`;
     scoreDiv.textContent = `SCORE: YOU ${userScore} VS ${computerScore}
             COMPUTER`;
-    winnerFunction();
+    if (computerScore === 5) {
+        computerScore = 0;
+        userScore = 0;
+        winnerDiv.textContent = 'COMPUTER WINS!';
+        playRock.removeEventListener('click', userPlayRock);
+        playPaper.removeEventListener('click', userPlayPaper);
+        playScissors.removeEventListener('click', userPlayScissors);
 
-}
-
-function userPlayRock() {
-    userPlay('Rock');
-}
-
-function userPlayPaper() {
-    userPlay('Paper');
+    } else if (userScore === 5) {
+        computerScore = 0;
+        userScore = 0;
+        winnerDiv.textContent = 'YOU WIN!';
+        playRock.removeEventListener('click', userPlayRock);
+        playPaper.removeEventListener('click', userPlayPaper);
+        playScissors.removeEventListener('click', userPlayScissors);
+    }
 }
 
 function userPlayScissors() {
-    userPlay('Scissors');
+    let result = playRound('Scissors', computerPlay());
+    resultsDiv.textContent = `${result}`;
+    scoreDiv.textContent = `SCORE: YOU ${userScore} VS ${computerScore}
+            COMPUTER`;
+    if (computerScore === 5) {
+        computerScore = 0;
+        userScore = 0;
+        winnerDiv.textContent = 'COMPUTER WINS!';
+        playRock.removeEventListener('click', userPlayRock);
+        playPaper.removeEventListener('click', userPlayPaper);
+        playScissors.removeEventListener('click', userPlayScissors);
+
+    } else if (userScore === 5) {
+        computerScore = 0;
+        userScore = 0;
+        winnerDiv.textContent = 'YOU WIN!';
+        playRock.removeEventListener('click', userPlayRock);
+        playPaper.removeEventListener('click', userPlayPaper);
+        playScissors.removeEventListener('click', userPlayScissors);
+    }
 }
-
-function resetGameFunction() {
-    playRock.addEventListener('click', userPlayRock);
-    playPaper.addEventListener('click', userPlayPaper);
-    playScissors.addEventListener('click', userPlayScissors);
-    winnerDiv.textContent = '';
-    resultsDiv.textContent = '';
-    scoreDiv.textContent = '';
-    resetGameDiv.removeChild(resetGameButton);
-
-}
-
 let validPlays = ["Rock", "Paper", "Scissors"];
 let userScore = +0;
 let computerScore = +0;
@@ -119,4 +136,3 @@ resetGameButton.textContent = 'Reset Game/Play Again';
 playRock.addEventListener('click', userPlayRock);
 playPaper.addEventListener('click', userPlayPaper);
 playScissors.addEventListener('click', userPlayScissors);
-resetGameButton.addEventListener('click', resetGameFunction);
